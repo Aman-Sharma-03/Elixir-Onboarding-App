@@ -1,4 +1,4 @@
-import LoginForm from "@/component/LoginForm";
+import LoginForm from "@/component/Forms/LoginForm";
 import { useRouter } from "expo-router";
 import React from "react";
 import { View } from "react-native";

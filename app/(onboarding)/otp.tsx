@@ -1,4 +1,4 @@
-import OTPForm from "@/component/OTPForm";
+import OTPForm from "@/component/Forms/OTPForm";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Alert, View } from "react-native";

@@ -1,4 +1,4 @@
-import UserDetailsForm from "@/component/userDetailsForm";
+import UserDetailsForm from "@/component/Forms/userDetailsForm";
 import { useRouter } from "expo-router";
 import { View } from "react-native";
 
