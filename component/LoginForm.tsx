@@ -1,5 +1,8 @@
+import { validate } from "@/utils/Validation";
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import * as yup from "yup";
+import ErrorMessage from "./ErrorMessage";
 import Input from "./Input";
 import NextButton from "./NextButton";
 
@@ -7,18 +10,25 @@ type Props = {
   onSubmit: (phone: string) => void;
 };
 
+const schema = yup.object().shape({
+  phone: yup
+    .string()
+    .required("Phone number is required")
+    .matches(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+});
+
 export default function LoginForm({ onSubmit }: Props) {
-  const [formData, setFormData] = useState<Record<string, any>>({ phone: "" });
-
-  const handleSubmit = () => {
-    const cleaned = formData.phone.trim();
-
-    if (cleaned.length !== 10) {
-      Alert.alert("Please enter a valid 10-digit phone number.");
+  const [formData, setFormData] = useState<Record<string, any>>({
+    phone: null,
+  });
+  const [errs, setErrors] = useState<any>({});
+  const handleSubmit = async () => {
+    console.log(errs);
+    const isValid = await validate(schema, formData, setErrors);
+    if (!isValid) {
       return;
     }
-
-    onSubmit(`+91${cleaned}`);
+    onSubmit(formData.phone);
   };
 
   return (
@@ -37,6 +47,7 @@ export default function LoginForm({ onSubmit }: Props) {
             keyboardType="phone-pad"
           />
         </View>
+        <ErrorMessage errs={errs} id="phone" />
       </View>
 
       <NextButton onNext={handleSubmit} />

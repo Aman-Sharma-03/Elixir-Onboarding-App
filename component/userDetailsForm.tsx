@@ -1,5 +1,8 @@
+import { validate } from "@/utils/Validation";
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import * as yup from "yup";
+import ErrorMessage from "./ErrorMessage";
 import Input from "./Input";
 import NextButton from "./NextButton";
 
@@ -7,26 +10,26 @@ type Props = {
   onSubmit: (data: { name: string; email: string }) => void;
 };
 
+const schema = yup.object().shape({
+  name: yup.string().required("Name is Required"),
+  email: yup
+    .string()
+    .email("Enter a valid email address")
+    .required("Email is required"),
+});
+
 export default function UserDetailsForm({ onSubmit }: Props) {
   const [formData, setFormData] = useState<Record<string, any>>({
     name: "",
     email: "",
   });
+  const [errs, setErrors] = useState<any>({});
 
-  const validateEmail = (email: string) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
-
-  const handleSubmit = () => {
-    if (!formData.name.trim()) {
-      Alert.alert("Name is required.");
+  const handleSubmit = async () => {
+    const isValid = await validate(schema, formData, setErrors);
+    if (!isValid) {
       return;
     }
-    if (!validateEmail(formData.email)) {
-      Alert.alert("Please enter a valid email.");
-      return;
-    }
-
     onSubmit({ name: formData.name.trim(), email: formData.email.trim() });
   };
 
@@ -42,6 +45,7 @@ export default function UserDetailsForm({ onSubmit }: Props) {
         placeholder="Name"
         className="mb-6"
       />
+      <ErrorMessage errs={errs} id="name" />
 
       <Input
         formData={formData}
@@ -50,6 +54,7 @@ export default function UserDetailsForm({ onSubmit }: Props) {
         placeholder="Email"
         className="mb-6"
       />
+      <ErrorMessage errs={errs} id="email" />
 
       <NextButton onNext={handleSubmit} />
     </View>

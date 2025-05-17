@@ -1,5 +1,8 @@
+import { validate } from "@/utils/Validation";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
+import * as yup from "yup";
+import ErrorMessage from "./ErrorMessage";
 import Input from "./Input";
 import NextButton from "./NextButton";
 
@@ -7,14 +10,23 @@ type Props = {
   onSubmit: (otp: number) => void;
 };
 
+const schema = yup.object().shape({
+  otp: yup
+    .string()
+    .required("OTP is required")
+    .matches(/^[0-9]{4}$/, "OTP must be 4 digits"),
+});
+
 const OTPForm = ({ onSubmit }: Props) => {
   const [formData, setFormData] = useState<Record<string, any>>({
     otp: null,
   });
+  const [errs, setErrors] = useState<any>({});
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Submit with phone number
-    if (!formData.otp) {
+    const isValid = await validate(schema, formData, setErrors);
+    if (!isValid) {
       return;
     }
     onSubmit(formData.otp);
@@ -34,8 +46,9 @@ const OTPForm = ({ onSubmit }: Props) => {
             id="otp"
             placeholder="OTP"
             keyboardType="phone-pad"
-            maxLength={6}
+            maxLength={4}
           />
+          <ErrorMessage errs={errs} id="otp" />
         </View>
       </View>
 
