@@ -14,7 +14,7 @@ const OTP = () => {
     const otpStatus = await getOTPStatus();
     if (otpStatus) {
       Alert.alert("OTP Mocking Successful");
-      router.push("/user-details");
+      router.replace("/user-details");
     } else {
       Alert.alert("Wrong OTP");
     }

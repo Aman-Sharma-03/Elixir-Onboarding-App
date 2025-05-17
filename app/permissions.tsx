@@ -22,7 +22,7 @@ const Permissions = () => {
 
   const handleContinue = (locationOk: boolean, attOk: boolean) => {
     if (locationOk && attOk) {
-      router.push("/login");
+      router.replace("/login");
     } else {
       Alert.alert("Please grant both the permissions to continue");
     }

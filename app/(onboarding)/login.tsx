@@ -8,7 +8,7 @@ const Login = () => {
   const handleSubmit = (phone: string) => {
     console.log("Mock Sending OTP to: ", phone);
     router.push({
-      pathname: "/(onboarding)/otp",
+      pathname: "/otp",
       params: { phone },
     });
   };
