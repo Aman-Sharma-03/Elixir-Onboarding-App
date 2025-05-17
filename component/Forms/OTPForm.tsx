@@ -1,6 +1,7 @@
 import { validate } from "@/utils/Validation";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import * as yup from "yup";
 import ErrorMessage from "../common/ErrorMessage";
 import Input from "../common/Input";
@@ -22,6 +23,7 @@ const OTPForm = ({ onSubmit }: Props) => {
     otp: null,
   });
   const [errs, setErrors] = useState<any>({});
+  const router = useRouter();
 
   const handleSubmit = async () => {
     // Submit with phone number
@@ -32,11 +34,15 @@ const OTPForm = ({ onSubmit }: Props) => {
     onSubmit(formData.otp);
   };
 
+  const handleChangeNumber = () => {
+    router.replace("/login");
+  };
+
   return (
     <View className="flex-1 p-6 bg-indigo-900">
       <View className="w-full gap-6 mt-16">
         <Text className="text-xl mb-6 font-bold text-white tracking-wide">
-          Please Enter the OTP:
+          Verify your number:
         </Text>
 
         <View className="mt-2">
@@ -51,6 +57,15 @@ const OTPForm = ({ onSubmit }: Props) => {
           <ErrorMessage errs={errs} id="otp" />
         </View>
       </View>
+      <TouchableOpacity
+        onPress={handleChangeNumber}
+        className="self-center"
+        style={{ marginTop: 10 }}
+      >
+        <Text style={{ color: "#57F2A0", textDecorationLine: "underline" }}>
+          Use a different number
+        </Text>
+      </TouchableOpacity>
 
       <NextButton onNext={handleSubmit} />
     </View>

@@ -32,7 +32,7 @@ const NextButton = ({ onNext }: Props) => {
         activeOpacity={0.7}
       >
         <Image
-          source={require("../assets/images/ChevronRight.png")}
+          source={require("../../assets/images/ChevronRight.png")}
           style={{ width: 24, height: 24 }}
         />
       </TouchableOpacity>
