@@ -36,6 +36,7 @@ const Input = ({
       placeholder={placeholder}
       placeholderTextColor="#9CA3AF"
       style={{
+        marginTop: 10,
         backgroundColor: "white",
         opacity: 0.75,
         borderRadius: 9999,

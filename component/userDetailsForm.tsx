@@ -32,7 +32,7 @@ export default function UserDetailsForm({ onSubmit }: Props) {
 
   return (
     <View className="flex-1 w-full gap-4 mt-16">
-      <Text className="text-2xl font-bold self-center mb-6 text-white">
+      <Text className="text-3xl font-bold self-center mb-6 text-white">
         Your Details
       </Text>
       <Input
