@@ -1,15 +1,18 @@
 import LoginForm from "@/component/Forms/LoginForm";
+import { setPhone } from "@/redux/slices/userSlice";
 import { useRouter } from "expo-router";
 import React from "react";
 import { View } from "react-native";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const handleSubmit = (phone: string) => {
-    console.log("Mock Sending OTP to: ", phone);
+    // console.log("Mock Sending OTP to: ", phone);
+    dispatch(setPhone(phone));
     router.replace({
       pathname: "/otp",
-      params: { phone },
     });
   };
   return (
