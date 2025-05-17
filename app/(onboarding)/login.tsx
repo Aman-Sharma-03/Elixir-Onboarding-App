@@ -1,21 +1,23 @@
-import LoginForm from "@/component/LoginForm";
+import LoginForm from "@/component/Forms/LoginForm";
+import { setPhone } from "@/redux/slices/userSlice";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const router = useRouter();
-  const handlePhoneSubmit = (phone: string) => {
-    console.log("Mock Sending OTP to: ", phone);
-    router.push({
-      pathname: "/(onboarding)/user-details",
-      params: { phone },
+  const dispatch = useDispatch();
+  const handleSubmit = (phone: string) => {
+    // console.log("Mock Sending OTP to: ", phone);
+    dispatch(setPhone(phone));
+    router.replace({
+      pathname: "/otp",
     });
   };
   return (
-    <View>
-      <Text>Login</Text>
-      <LoginForm onSubmit={handlePhoneSubmit} />
+    <View className="bg-[#16412b] flex-1 px-4 pt-12">
+      <LoginForm onSubmit={handleSubmit} />
     </View>
   );
 };
