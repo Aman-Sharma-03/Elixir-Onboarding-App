@@ -1,6 +1,6 @@
 import UserDetailsForm from "@/component/userDetailsForm";
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function UserDetailsScreen() {
   const router = useRouter();
@@ -11,8 +11,7 @@ export default function UserDetailsScreen() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center px-4 bg-white">
-      <Text className="text-2xl font-bold mb-6">Your Details</Text>
+    <View className="bg-[#16412b] flex-1 justify-center items-center px-4 pt-16">
       <UserDetailsForm onSubmit={handleSubmit} />
     </View>
   );

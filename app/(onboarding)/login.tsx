@@ -1,21 +1,20 @@
 import LoginForm from "@/component/LoginForm";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
-  const handlePhoneSubmit = (phone: string) => {
+  const handleSubmit = (phone: string) => {
     console.log("Mock Sending OTP to: ", phone);
     router.push({
-      pathname: "/(onboarding)/user-details",
+      pathname: "/(onboarding)/otp",
       params: { phone },
     });
   };
   return (
-    <View>
-      <Text>Login</Text>
-      <LoginForm onSubmit={handlePhoneSubmit} />
+    <View className="bg-[#16412b] flex-1 px-4 pt-12">
+      <LoginForm onSubmit={handleSubmit} />
     </View>
   );
 };

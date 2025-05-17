@@ -1,38 +1,45 @@
 import { useState } from "react";
-import { Alert, Button, Text, TextInput, View } from "react-native";
+import { Alert, Text, View } from "react-native";
+import Input from "./Input";
+import NextButton from "./NextButton";
 
 type Props = {
   onSubmit: (phone: string) => void;
 };
 
 export default function LoginForm({ onSubmit }: Props) {
-  const [phone, setPhone] = useState("");
+  const [formData, setFormData] = useState<Record<string, any>>({ phone: "" });
 
   const handleSubmit = () => {
-    const cleaned = phone.replace(/\D/g, "");
+    const cleaned = formData.phone.trim();
 
     if (cleaned.length !== 10) {
       Alert.alert("Please enter a valid 10-digit phone number.");
       return;
     }
 
-    onSubmit(`+91${cleaned}`); // Or whatever country code you use
+    onSubmit(`+91${cleaned}`);
   };
 
   return (
-    <View className="w-full gap-4">
-      <Text className="text-lg font-semibold">Enter your phone number</Text>
+    <View className="flex-1 w-full p-6 bg-indigo-900">
+      <View className="w-full gap-6 mt-16">
+        <Text className="text-xl mb-6 font-bold text-white tracking-wide">
+          Login using your mobile number
+        </Text>
 
-      <TextInput
-        keyboardType="phone-pad"
-        value={phone}
-        onChangeText={setPhone}
-        placeholder="e.g. 9876543210"
-        className="border border-gray-300 rounded-lg p-3 text-base"
-        maxLength={14}
-      />
+        <View className="mt-2">
+          <Input
+            id="phone"
+            formData={formData}
+            setFormData={setFormData}
+            placeholder="Phone number"
+            keyboardType="phone-pad"
+          />
+        </View>
+      </View>
 
-      <Button title="Send OTP" onPress={handleSubmit} />
+      <NextButton onNext={handleSubmit} />
     </View>
   );
 }

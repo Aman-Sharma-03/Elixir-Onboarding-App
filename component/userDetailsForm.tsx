@@ -1,51 +1,57 @@
 import { useState } from "react";
-import { Alert, Button, Text, TextInput, View } from "react-native";
+import { Alert, Text, View } from "react-native";
+import Input from "./Input";
+import NextButton from "./NextButton";
 
 type Props = {
   onSubmit: (data: { name: string; email: string }) => void;
 };
 
 export default function UserDetailsForm({ onSubmit }: Props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState<Record<string, any>>({
+    name: "",
+    email: "",
+  });
 
   const validateEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
 
   const handleSubmit = () => {
-    if (!name.trim()) {
+    if (!formData.name.trim()) {
       Alert.alert("Name is required.");
       return;
     }
-    if (!validateEmail(email)) {
+    if (!validateEmail(formData.email)) {
       Alert.alert("Please enter a valid email.");
       return;
     }
 
-    onSubmit({ name: name.trim(), email: email.trim() });
+    onSubmit({ name: formData.name.trim(), email: formData.email.trim() });
   };
 
   return (
-    <View className="w-full gap-4">
-      <Text className="text-lg font-semibold">Enter your details</Text>
-
-      <TextInput
-        value={name}
-        onChangeText={setName}
+    <View className="flex-1 w-full gap-4 mt-16">
+      <Text className="text-2xl font-bold self-center mb-6 text-white">
+        Your Details
+      </Text>
+      <Input
+        formData={formData}
+        setFormData={setFormData}
+        id="name"
         placeholder="Name"
-        className="border border-gray-300 rounded-lg p-3 text-base"
+        className="mb-6"
       />
 
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
+      <Input
+        formData={formData}
+        setFormData={setFormData}
+        id="email"
         placeholder="Email"
-        keyboardType="email-address"
-        className="border border-gray-300 rounded-lg p-3 text-base"
+        className="mb-6"
       />
 
-      <Button title="Continue" onPress={handleSubmit} />
+      <NextButton onNext={handleSubmit} />
     </View>
   );
 }

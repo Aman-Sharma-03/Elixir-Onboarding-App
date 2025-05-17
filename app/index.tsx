@@ -1,9 +1,9 @@
 import { View } from "react-native";
-import Permissions from "./(onboarding)/permissions";
+import Permissions from "./permissions";
 
 export default function Index() {
   return (
-    <View className="flex-1 justify-center items-center">
+    <View className="bg-[#16412b] flex-1 p-6 items-center">
       <Permissions />
     </View>
   );
