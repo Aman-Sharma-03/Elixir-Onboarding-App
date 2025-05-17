@@ -42,7 +42,7 @@ const OTPForm = ({ onSubmit }: Props) => {
     <View className="flex-1 p-6 bg-indigo-900">
       <View className="w-full gap-6 mt-16">
         <Text className="text-xl mb-6 font-bold text-white tracking-wide">
-          Verify your number:
+          Please verify your number:
         </Text>
 
         <View className="mt-2">
