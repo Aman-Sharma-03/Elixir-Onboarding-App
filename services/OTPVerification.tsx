@@ -3,6 +3,6 @@ export const getOTPStatus = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true);
-    }, 4000);
+    }, 2500);
   });
 };

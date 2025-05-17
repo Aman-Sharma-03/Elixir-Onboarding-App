@@ -1,3 +1,4 @@
+import { setLocation } from "@/redux/slices/locationSlice";
 import {
   handleRequestATT,
   handleRequestLocationAccess,
@@ -12,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 const Permissions = () => {
   const [locationGranted, setLocationGranted] = useState<boolean>(false);
@@ -19,6 +21,7 @@ const Permissions = () => {
     Platform.OS === "android"
   ); // Mocking ATT behaviour for android
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleContinue = (locationOk: boolean, attOk: boolean) => {
     if (locationOk && attOk) {
@@ -30,10 +33,16 @@ const Permissions = () => {
 
   const handleGetStarted = async () => {
     try {
-      const locationOk = await handleRequestLocationAccess(setLocationGranted);
-      if (!locationOk) return;
+      const locationRes = await handleRequestLocationAccess(setLocationGranted);
+      if (!locationRes || !locationRes.granted) return;
+      dispatch(
+        setLocation({
+          latitude: locationRes.coords?.latitude ?? "Not found",
+          longitude: locationRes.coords?.longitude ?? "Not found",
+        })
+      );
       await handleRequestATT(setAttGranted);
-      handleContinue(locationOk, attGranted);
+      handleContinue(locationRes.granted, attGranted);
     } catch (err) {
       Alert.alert("Something went wrong");
     }

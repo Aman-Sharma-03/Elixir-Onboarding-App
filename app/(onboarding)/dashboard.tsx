@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function Dashboard() {
   const user = useSelector((state: RootState) => state.user);
+  const location = useSelector((state: RootState) => state.location);
   return (
     <View className="flex-1 bg-[#16412b] items-center px-4">
       <Image
@@ -27,6 +28,8 @@ export default function Dashboard() {
         <Text className="text-white">Name: {user.name}</Text>
         <Text className="text-white">Email: {user.email}</Text>
         <Text className="text-white">Phone: {user.phone}</Text>
+        <Text className="text-white">Latitude: {location.latitude}</Text>
+        <Text className="text-white">Longitude: {location.longitude}</Text>
       </View>
     </View>
   );

@@ -11,20 +11,25 @@ export const handleRequestLocationAccess = async (setLocationGranted: React.Disp
           "Location Services Off",
           "Please turn on your device's location services to continue."
         );
-        return false;
+        return { granted: false };
       }
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
         setLocationGranted(true);
+        const location = await Location.getCurrentPositionAsync({});
 
-        return true;
+        return {
+          granted: true,
+          coords: location.coords,
+          timestamp: location.timestamp,
+        };
       } else {
         Alert.alert("Location permission is required");
-        return false;
+        return { granted: false };
       }
     } catch (err) {
       Alert.alert("Location permission failed");
-      return false;
+      return { granted: false };
     }
   };
 
