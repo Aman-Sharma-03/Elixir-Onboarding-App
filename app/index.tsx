@@ -1,5 +1,5 @@
+import Permissions from "@/component/permissions";
 import { View } from "react-native";
-import Permissions from "./permissions";
 
 export default function Index() {
   return (
