@@ -1,50 +1,84 @@
-# Welcome to your Expo app 👋
+# Elixir Club - SWE Intern Mobile Assignment
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Welcome! This project is a mobile application developed for the **Elixir SWE Intern** assignment. The focus is on building a well-structured modular, scalable and maintainable React Native app using modern best practices including TypeScript, TailwindCSS, Redux Toolkit, and Expo.
 
-## Get started
+### Prerequisites
+Ensure you have the following installed:
 
-1. Install dependencies
+- [Node.js](https://nodejs.org/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- [Git](https://git-scm.com/)
 
+### 1. Clone the Repository
+
+   ```bash
+   git clone https://github.com/Aman-Sharma-03/Elixir-Onboarding-App.git
+   cd Elixir-Onboarding-App
+   ```
+
+### 2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
+### 3. Start the app
 
    ```bash
-   npx expo start
+   npx expo start --tunnel
    ```
 
-In the output, you'll find options to open the app in a
+- Used the --tunnel flag to avoid local firewall issues.
+- Open Expo Go and scan the QR code in your terminal.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+
+Alternative Options: 
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## 🧠 Design Principles
+- Modular Architecture: Each screen, component, and slice is isolated for scalability and reusability.
+- Separation of Concerns: UI, logic, and state management are kept in separate layers for clarity and maintainability.
+- Type Safety: TypeScript is used throughout the app to catch bugs early and ensure robust typings.
+- DRY (Don’t Repeat Yourself): Shared UI elements and utilities prevent redundancy.
+- Mobile-First Design: Built with Tailwind CSS using responsive, touch-friendly components.
 
-When you're ready, run:
 
-```bash
-npm run reset-project
-```
+## Navigation Strategy
+- expo-router is used for file-based routing.
+- Nested layouts and dynamic routing allow scalable page management.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+   Example:
+      app/
+      ├── _layout.tsx         # App-wide layout
+      ├── index.tsx           # Landing page (permissions)
+      (onboarding)/        # grouping the screens
+         ├── layout.tsx          # Layout for onboarding screens
+         ├── login.tsx           # Login screen
+         ├── otp.tsx             # OTP screen
+         ├── user-details.tsx    # User details input
+         ├── dashboard.tsx       # Main authenticated screen
 
-## Learn more
+## Reusable Components
+Built with reusability and consistency in mind:
+- Validator: Common validator function which accepts schema, objectToBeValidated and error state setter function
+- Permission Function: These are separated out for reusablitity
+- Services: All the API calls (mocked for now) are separated in the separate function, so that if required they can be used just by exporting
+- ErrorMessage: Common Error Message component which takes the Error State and id to identify the field to check
+- Input Component: Reusable text input with dynamic props, helps in identify the input box and updating the data to the parent element
+- Button Component: Customizable button with action as a props
 
-To learn more about developing your project with Expo, look at the following resources:
+## Validation with Yup
+- Schema-based declarative validation
+- Instant field-level error feedback before submitting the form
+- Consistent UX for forms
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## State Management
+Used Redux Toolkit to manage app-wide state.
+- userSlice: Stores user information and details
+- locationSlice: Stores user's current location longitude and latitude
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Service Mocks
+- Location Services: If location access fails or is unavailable, fallbacks alerts are triggered.
+- ATT on Android: Since App Tracking Transparency is iOS-specific, mock it on Android platforms.
