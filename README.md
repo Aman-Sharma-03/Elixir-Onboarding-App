@@ -38,11 +38,11 @@ Alternative Options:
 
 
 ## 🧠 Design Principles
-- Modular Architecture: Each screen, component, and slice is isolated for scalability and reusability.
-- Separation of Concerns: UI, logic, and state management are kept in separate layers for clarity and maintainability.
-- Type Safety: TypeScript is used throughout the app to catch bugs early and ensure robust typings.
-- DRY (Don’t Repeat Yourself): Shared UI elements and utilities prevent redundancy.
-- Mobile-First Design: Built with Tailwind CSS using responsive, touch-friendly components.
+- **Modular Architecture:** Each screen, component, and slice is isolated for scalability and reusability.
+- **Separation of Concerns:** UI, logic, and state management are kept in separate layers for clarity and maintainability.
+- **Type Safety:** TypeScript is used throughout the app to catch bugs early and ensure robust typings.
+- **DRY (Don’t Repeat Yourself):** Shared UI elements and utilities prevent redundancy.
+- **Mobile-First Design:** Built with Tailwind CSS using responsive, touch-friendly components.
 
 
 ## Navigation Strategy
@@ -50,24 +50,27 @@ Alternative Options:
 - Nested layouts and dynamic routing allow scalable page management.
 
    Example:
+     ```txt
       app/
-      ├── _layout.tsx         # App-wide layout
+      ├── _layout.tsx         # App-wide layout (e.g., shared context, header)
       ├── index.tsx           # Landing page (permissions)
-      (onboarding)/        # grouping the screens
-         ├── layout.tsx          # Layout for onboarding screens
-         ├── login.tsx           # Login screen
-         ├── otp.tsx             # OTP screen
-         ├── user-details.tsx    # User details input
-         ├── dashboard.tsx       # Main authenticated screen
+      
+      (onboarding)/           # Route group for onboarding flow
+      ├── layout.tsx          # Layout specific to onboarding screens
+      ├── login.tsx           # Login screen
+      ├── otp.tsx             # OTP verification screen
+      ├── user-details.tsx    # User details form
+      ├── dashboard.tsx       # Post-login dashboard
+     ```
 
 ## Reusable Components
 Built with reusability and consistency in mind:
-- Validator: Common validator function which accepts schema, objectToBeValidated and error state setter function
-- Permission Function: These are separated out for reusablitity
-- Services: All the API calls (mocked for now) are separated in the separate function, so that if required they can be used just by exporting
-- ErrorMessage: Common Error Message component which takes the Error State and id to identify the field to check
-- Input Component: Reusable text input with dynamic props, helps in identify the input box and updating the data to the parent element
-- Button Component: Customizable button with action as a props
+- **Validator:** Common validator function which accepts schema, objectToBeValidated and error state setter function
+- **Permission Function:** These are separated out for reusablitity
+- **Services:** All the API calls (mocked for now) are separated in the separate function, so that if required they can be used just by exporting
+- **ErrorMessage:** Common Error Message component which takes the Error State and id to identify the field to check
+- **Input Component:** Reusable text input with dynamic props, helps in identify the input box and updating the data to the parent element
+- **Button Component:** Customizable button with action as a props
 
 ## Validation with Yup
 - Schema-based declarative validation
@@ -80,5 +83,5 @@ Used Redux Toolkit to manage app-wide state.
 - locationSlice: Stores user's current location longitude and latitude
 
 ## Service Mocks
-- Location Services: If location access fails or is unavailable, fallbacks alerts are triggered.
-- ATT on Android: Since App Tracking Transparency is iOS-specific, mock it on Android platforms.
+- **Location Services:** If location access fails or is unavailable, fallbacks alerts are triggered.
+- **ATT on Android:** Since App Tracking Transparency is iOS-specific, mock it on Android platforms.
