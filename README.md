@@ -30,6 +30,12 @@ Ensure you have the following installed:
 - Used the --tunnel flag to avoid local firewall issues.
 - Open Expo Go and scan the QR code in your terminal.
 
+## Deployment Details:
+- I tried to deploy it somehow and found out expo provide use functionality to deploy it as well on web
+- I have bypassed the location and ATT permission if we are running it on web and haven't pushed it to github, only for the deployment.
+  - Link: https://elixir-onboardingapp--ops92skjah.expo.app
+
+
 
 Alternative Options: 
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
