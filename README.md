@@ -56,11 +56,11 @@ Alternative Options:
       ├── index.tsx           # Landing page (permissions)
       
       (onboarding)/           # Route group for onboarding flow
-      ├── layout.tsx          # Layout specific to onboarding screens
-      ├── login.tsx           # Login screen
-      ├── otp.tsx             # OTP verification screen
-      ├── user-details.tsx    # User details form
-      ├── dashboard.tsx       # Post-login dashboard
+         ├── layout.tsx          # Layout specific to onboarding screens
+         ├── login.tsx           # Login screen
+         ├── otp.tsx             # OTP verification screen
+         ├── user-details.tsx    # User details form
+         ├── dashboard.tsx       # Post-login dashboard
      ```
 
 ## Reusable Components
