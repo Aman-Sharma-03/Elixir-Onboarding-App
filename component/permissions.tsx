@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 const Permissions = () => {
   const [locationGranted, setLocationGranted] = useState<boolean>(false);
   const [attGranted, setAttGranted] = useState<boolean>(
-    Platform.OS === "android"
+    Platform.OS === "android" || Platform.OS === "web"
   ); // Mocking ATT behaviour for android
   const router = useRouter();
   const dispatch = useDispatch();
@@ -53,12 +53,13 @@ const Permissions = () => {
         <Image
           source={require("../assets/images/Elixir.webp")}
           className="w-28 h-28 self-center mt-12 mb-8"
+          style={{ width: 60, height: 60, marginTop: 50 }}
         />
         <Text className="self-center text-white font-semibold text-4xl tracking-wide">
           Elixir Club
         </Text>
       </View>
-      <View className="mt-16 text-white">
+      <View className="mt-16 text-white self-center">
         <Text className="text-white text-xl">Wellness is more than health</Text>
       </View>
       <View className="flex-1" />

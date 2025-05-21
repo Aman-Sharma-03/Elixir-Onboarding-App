@@ -1,10 +1,11 @@
-import * as Location from "expo-location";
-import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
+// import * as Location from "expo-location";
+// import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
 import { Alert, Platform } from "react-native";
 
 export const handleRequestLocationAccess = async (setLocationGranted: React.Dispatch<React.SetStateAction<boolean>>) => {
     try {
       // First, check if location services are enabled
+      const Location = await import("expo-location");
       const servicesEnabled = await Location.hasServicesEnabledAsync();
       if (!servicesEnabled) {
         Alert.alert(
@@ -36,6 +37,7 @@ export const handleRequestLocationAccess = async (setLocationGranted: React.Disp
  export const handleRequestATT = async (setAttGranted: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (Platform.OS === "ios") {
       try {
+        const {requestTrackingPermissionsAsync} = await import("expo-tracking-transparency");
         const { status } = await requestTrackingPermissionsAsync();
         if (status === "granted") {
           setAttGranted(true);

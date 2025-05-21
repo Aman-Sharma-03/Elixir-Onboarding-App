@@ -1,4 +1,6 @@
 import OTPForm from "@/component/Forms/OTPForm";
+import { setLogin } from "@/redux/slices/userSlice";
+import { RootState } from "@/redux/store";
 import { getOTPStatus } from "@/services/OTPVerification";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -10,19 +12,28 @@ import {
   Text,
   View,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 const OTP = () => {
   const [processing, setProcessing] = useState<boolean>(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const loginState = useSelector((state: RootState) => state.login);
 
   const handleSubmit = async (otp: number) => {
     setProcessing(true);
-    const otpStatus = await getOTPStatus();
-    console.log("otpStatus" + otpStatus);
+    const loginStatus = loginState.loginType as string;
+    const otpStatus = await getOTPStatus(loginStatus);
+    if (otpStatus === "login") {
+      dispatch(setLogin(true));
+    }
     setProcessing(false);
-    if (otpStatus) {
+    console.log(otpStatus);
+    if (otpStatus === "login") {
       // Alert.alert("OTP Mocking Successful");
-      router.replace("/user-details");
+      router.replace("/dashboardold");
+    } else if (otpStatus === "signup") {
+      router.replace("/dashboardnew");
     } else {
       Alert.alert("Wrong OTP");
     }

@@ -1,7 +1,9 @@
+import { RootState } from "@/redux/store";
 import { validate } from "@/utils/Validation";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
 import ErrorMessage from "../common/ErrorMessage";
 import Input from "../common/Input";
@@ -24,6 +26,7 @@ const OTPForm = ({ onSubmit }: Props) => {
   });
   const [errs, setErrors] = useState<any>({});
   const router = useRouter();
+  const loginState = useSelector((state: RootState) => state.login);
 
   const handleSubmit = async () => {
     // Submit with phone number

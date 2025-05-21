@@ -12,7 +12,7 @@ export default function UserDetailsScreen() {
     // console.log("User Details:", data);
     dispatch(setName(data.name));
     dispatch(setEmail(data.email));
-    router.replace("/dashboard");
+    router.replace("/permission");
   };
 
   return (

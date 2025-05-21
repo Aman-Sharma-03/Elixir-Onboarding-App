@@ -4,12 +4,14 @@ type UserState = {
   phone: string;
   name: string;
   email: string;
+  login: boolean;
 };
 
 const initialState: UserState = {
   name: '',
   phone: '',
-  email: ''
+  email: '',
+  login: false
 }
 
 const userSlice = createSlice({
@@ -25,11 +27,14 @@ const userSlice = createSlice({
     setEmail(state, action: PayloadAction<string>){
       state.email = action.payload
     },
+    setLogin(state, action: PayloadAction<boolean>){
+      state.login = action.payload
+    },
     resetUser(state, action: PayloadAction<string>){
       return initialState;
     }
   }
 })
 
-export const {setPhone, setEmail, setName, resetUser} = userSlice.actions;
+export const {setPhone, setEmail, setName, setLogin, resetUser} = userSlice.actions;
 export default userSlice.reducer
